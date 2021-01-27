@@ -1,0 +1,72 @@
+version: '3.7'
+
+x-defaults: &defaults
+  build: .
+  environment:
+    TZ: Asia/Tokyo
+    EDITOR: vi
+    APP_PATH: /app
+    RAILS_ENV: development
+  volumes:
+    - .:/app
+    - /app/tmp/cache
+    - /app/tmp/pids
+    - /app/.git
+    - bundler-data:/usr/local/bundle
+
+volumes:
+  bundler-data:
+  db-data:
+
+services:
+  web:
+    <<: *defaults
+    command: /bin/sh -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    ports:
+      - '3000:3000'
+    environment:
+      - "DATABASE_HOST=db"
+      - "DATABASE_PORT=5432"
+      - "DATABASE_USER=pos_user"
+      - "DATABASE_PASSWORD=password"
+    tty: true
+    stdin_open: true
+    links:
+      - db
+
+  webpack-dev-server:
+    build: .
+    command: /bin/sh -c "bin/webpack-dev-server --hot --inline"
+    ports:
+      - "3035:3035"
+    environment:
+      WEBPACKER_DEV_SERVER_HOST: 0.0.0.0
+    volumes:
+      - .:/var/src/app
+    tty: true
+    stdin_open: true
+    depends_on:
+      - web
+
+  db:
+    image: postgres:11
+    volumes:
+      - db-data:/var/lib/postgresql/db-data
+    ports:
+      - "5432:5432"
+    environment:
+      - "POSTGRES_USER=pos_user"
+      - "POSTGRES_PASSWORD=password"
+
+  spring:
+    <<: *defaults
+    command: /bin/sh -c "rm -f tmp/pids/server.pid && bundle exec spring server"
+    links:
+      - db
+
+#  guard:
+#    <<: *defaults
+#    command: bundle exec guard -i
+#    depends_on:
+#      - db
+#      - cache
