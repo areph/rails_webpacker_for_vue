@@ -29,7 +29,6 @@ RUN apt-get update && \
     libxss1 \
     libpq-dev \
     xdg-utils \
-    nodejs \
     postgresql-client \
     vim
 
@@ -40,7 +39,7 @@ echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.lis
 apt-get update && apt-get install -y yarn
 
 # node
-RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
 apt-get install nodejs
 
 # Timezone
