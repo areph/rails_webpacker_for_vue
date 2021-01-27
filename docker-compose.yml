@@ -35,14 +35,13 @@ services:
       - db
 
   webpack-dev-server:
+    <<: *defaults
     build: .
     command: /bin/sh -c "bin/webpack-dev-server --hot --inline"
     ports:
       - "3035:3035"
     environment:
       WEBPACKER_DEV_SERVER_HOST: 0.0.0.0
-    volumes:
-      - .:/var/src/app
     tty: true
     stdin_open: true
     depends_on:
