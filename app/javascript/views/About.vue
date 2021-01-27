@@ -1,7 +1,7 @@
 <template>
   <section id="about">
     <h1>{{ title }}</h1>
-    <input @click="getApiData" type="button" value="IPを取得">
+    <input @click="getApiData" type="button" value="Get Data from Rails API!">
   </section>
 </template>
 
