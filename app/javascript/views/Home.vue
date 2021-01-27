@@ -8,7 +8,7 @@
 export default {
   data() {
     return {
-      title: "Welcome Home!"
+      title: "Welcome to Home Page"
     };
   }
 };

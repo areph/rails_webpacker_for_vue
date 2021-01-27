@@ -13,6 +13,7 @@ import router from "../routes/router.js";
 import App from "../app.vue";
 import axios from "axios";
 import VueAxios from "vue-axios";
+Vue.use(VueAxios, axios);
 
 document.addEventListener("DOMContentLoaded", () => {
   const app = new Vue({
