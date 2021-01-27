@@ -1,0 +1,1 @@
+# rails_webpacker_for_vue
