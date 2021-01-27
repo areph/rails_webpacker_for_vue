@@ -6,4 +6,7 @@ Rails.application.routes.draw do
       resources :sample, only: [:index]
     end
   end
+
+  get '*path', to: 'top#top'
+
 end
