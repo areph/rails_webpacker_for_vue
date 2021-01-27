@@ -5,18 +5,25 @@
 // like app/views/layouts/application.html.erb.
 // All it does is render <div>Hello Vue</div> at the bottom of the page.
 
-import Vue from 'vue'
-import App from '../app.vue'
+import Vue from "vue";
+import Vuex from "vuex";
+import VueRouter from "vue-router";
+import store from "../store/store.js";
+import router from "../routes/router.js";
+import App from "../app.vue";
+import axios from "axios";
+import VueAxios from "vue-axios";
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   const app = new Vue({
-    render: h => h(App)
-  }).$mount()
-  document.body.appendChild(app.$el)
+    store,
+    router,
+    render: (h) => h(App),
+  }).$mount();
+  document.body.appendChild(app.$el);
 
-  console.log(app)
-})
-
+  console.log(app);
+});
 
 // The above code uses Vue without the compiler, which means you cannot
 // use Vue to target elements in your existing html templates. You would
@@ -30,7 +37,6 @@ document.addEventListener('DOMContentLoaded', () => {
 //   {{message}}
 //   <app></app>
 // </div>
-
 
 // import Vue from 'vue/dist/vue.esm'
 // import App from '../app.vue'
