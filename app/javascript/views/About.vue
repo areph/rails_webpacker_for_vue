@@ -9,14 +9,15 @@
 export default {
   data() {
     return {
-      title: "Welcome to About Page"
+      title: "Welcome to About Page",
+      sample_data: ''
     };
   },
   methods: {
     getApiData() {
-      this.axios.get('https://httpbin.org/get')
+      this.axios.get('/api/v1/sample.json')
       .then((response) => {
-        alert(response.data.origin);
+        alert(response.data.name);
       })
       .catch((e) => {
         alert(e);
